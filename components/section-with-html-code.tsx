@@ -23,17 +23,18 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
   const formData = new FormData(e.target as HTMLFormElement);
   const name = formData.get("name") as string;
   const email = formData.get("email") as string;
-  const message = formData.get("message") as string;
+  const address = formData.get("address") as string;
 
   if (typeof window !== "undefined") {
     const jstagInstance = (window as any).jstag;
     jstagInstance.send({
       name,
       email,
+      address,
     });
   }
 
-  console.log(name, email, message);
+  console.log(name, email, address);
   alert("Form submitted");
   (e.target as HTMLFormElement).reset();
 };
@@ -59,13 +60,18 @@ export default function SectionWithHtmlCode({
         <div className="contact-page-form">
           <form onSubmit={handleSubmit}>
             <div className="input-fields">
-              <input placeholder="Name*" />
+              <input name="name" id="name" placeholder="Name*" />
             </div>
             <div className="input-fields">
-              <input placeholder="Email*" />
+              <input name="email" id="email" placeholder="Email*" />
             </div>
             <div className="text-field">
-              <input type="text-area" placeholder="Message*" />
+              <input
+                type="text-area"
+                name="address"
+                id="address"
+                placeholder="Address*"
+              />
             </div>
             <button type="submit" className="btn primary-btn">
               Send Message
